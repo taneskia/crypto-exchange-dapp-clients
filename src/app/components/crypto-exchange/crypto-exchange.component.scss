@@ -1,0 +1,48 @@
+.custom-container {
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-upload {
+    font-size: large;
+    font-weight: bold;
+}
+
+.file-selector {
+    max-height: 28rem;
+}
+
+.mat-raised-button {
+    width: 100%;
+    font-size:large !important;
+}
+
+.bg-color {
+    background-color: darkgray;
+}
+
+form {
+    margin-top: 5rem;
+}
+
+mat-divider {
+    margin-top: 1rem;
+}
+
+mat-toolbar span {
+    font-size: xx-large !important;
+}
+
+.viewport {
+    height: 25rem;
+    width: 100%;
+    font-size: large;
+  }
+  
+.mat-radio-button ~ .mat-radio-button {
+margin-left: 16px;
+}

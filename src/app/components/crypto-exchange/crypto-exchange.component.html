@@ -1,0 +1,49 @@
+<p>
+    <mat-toolbar color="primary">
+        <span class="ml-5">Crypto Exchange</span>
+    </mat-toolbar>
+</p>
+<div class="custom-container mt-5">
+    <div class="row">
+        <div class="col-lg-4 col-md-12 p-3 rounded-lg file-selector">
+            <div class="rounded-lg bg-color p-2">
+                <mat-card-title>Send Ether</mat-card-title>
+                <mat-divider></mat-divider>
+
+                <div class="mt-4">
+                    <mat-icon>account_circle</mat-icon>
+                    <p>Current account</p>
+                    <mat-divider></mat-divider>
+                </div>
+
+
+                <div class="mt-4">
+                    <mat-icon>key</mat-icon> {{ currentAccount }}
+                    <mat-divider></mat-divider>
+                </div>
+
+                <div class="mt-4">
+
+                </div>
+
+                <mat-divider></mat-divider>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 mt-lg-0 mt-5 p-3">
+            <div class="rounded-lg bg-color p-2">
+                <mat-card-title>Recent transactions</mat-card-title>
+
+                <mat-divider></mat-divider>
+
+                <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="viewport mt-5">
+                    <!-- <div *ngIf="transactions.length == 0">Transactions will appear here</div> -->
+                    <!-- <div *ngFor="let item of transactions">{{item}}</div> -->
+                </cdk-virtual-scroll-viewport>
+            </div>
+
+        </div>
+
+    </div>
+</div>
