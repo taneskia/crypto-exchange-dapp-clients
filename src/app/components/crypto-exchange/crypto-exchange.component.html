@@ -78,7 +78,7 @@
                 </div>
 
                 <button mat-raised-button color="primary" 
-                        class="mt-5"
+                        class="mt-2"
                         [disabled]="addressFormControl.hasError('pattern') || 
                         addressFormControl.hasError('required') || 
                         etherFormControl.hasError('required') ||
@@ -86,22 +86,97 @@
                         (click)="sendEther()">
                     Send
                 </button>
+
             </div>
         </div>
 
         <div class="col-lg-6 col-md-12 mt-lg-0 mt-5 p-3">
+            <div class="rounded-lg bg-color p-2">
+                <mat-card-title>Address list</mat-card-title>
+
+                <mat-divider></mat-divider>
+
+                 <div class="row">
+                    <div class="col-2 mt-4 ml-2">
+                        <mat-icon class="icon-display">add_circle</mat-icon>
+                    </div>
+                    <div class="col-8 mt-4">
+                        <p>Add address</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2 mt-4 ml-2">
+                        <mat-icon class="icon-display">key</mat-icon>
+                    </div>
+                    <div class="col-8 mt-4">
+                        <form class="address-form">
+                            <mat-form-field class="full-width">
+                                <mat-label>Address</mat-label>
+                                <input type="text" matInput [formControl]="addAddressFormControl"
+                                    placeholder="Ex. 0x48a1DC42AdbB87991F9e3b7C53D16E9fEF0b9ED7m">
+                                <mat-error
+                                    *ngIf="addAddressFormControl.hasError('pattern') && !addAddressFormControl.hasError('required')">
+                                    Please enter a valid address
+                                </mat-error>
+                                <mat-error *ngIf="addAddressFormControl.hasError('required')">
+                                    Address is <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </form>
+                    </div>
+                </div>
+
+                <button mat-raised-button color="primary" 
+                        class="mt-2"
+                        [disabled]="addAddressFormControl.hasError('pattern') || 
+                        addAddressFormControl.hasError('required')"
+                        (click)="addAddress()">
+                    Add
+                </button>
+
+                <mat-divider></mat-divider>
+                
+                <div class="row">
+                    <div class="col-2 mt-4 ml-2">
+                        <mat-icon class="icon-display">list</mat-icon>
+                    </div>
+                    <div class="col-8 mt-4">
+                        <p>Address list</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Address list</mat-label>
+                            <mat-select [(ngModel)]="selectedAddress" name="food" (selectionChange)="onSelectedAddressChanged()">
+                              <mat-option *ngFor="let address of addressList" [value]="address">
+                                {{address}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+          
+
+        </div>
+
+        <!-- <div class="col-lg-6 col-md-12 mt-lg-0 mt-5 p-3">
             <div class="rounded-lg bg-color p-2">
                 <mat-card-title>Recent transactions</mat-card-title>
 
                 <mat-divider></mat-divider>
 
                 <cdk-virtual-scroll-viewport appendOnly itemSize="50" class="viewport mt-5">
-                    <!-- <div *ngIf="transactions.length == 0">Transactions will appear here</div> -->
-                    <!-- <div *ngFor="let item of transactions">{{item}}</div> -->
+                    <div *ngIf="transactions.length == 0">Transactions will appear here</div>
+                    <div *ngFor="let item of transactions">{{item}}</div>
                 </cdk-virtual-scroll-viewport>
             </div>
 
-        </div>
+        </div> -->
 
     </div>
 </div>
