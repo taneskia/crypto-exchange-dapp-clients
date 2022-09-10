@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { CryptoExchangeService } from 'src/app/services/crypto-exchange.service';
 
@@ -7,9 +8,12 @@ import { CryptoExchangeService } from 'src/app/services/crypto-exchange.service'
   templateUrl: './crypto-exchange.component.html',
   styleUrls: ['./crypto-exchange.component.scss']
 })
-export class CryptoExchangeComponent implements OnInit {
+export class CryptoExchangeComponent {
 
   currentAccount: string = "";
+
+  addressFormControl = new FormControl('', [Validators.required, Validators.pattern('0x[a-fA-F0-9]{40}')]);
+  etherFormControl = new FormControl('', [Validators.required, Validators.min(0)]);
 
   constructor(private cryptoExchangeService: CryptoExchangeService,
               private changeDetectorRef: ChangeDetectorRef) {
@@ -20,8 +24,9 @@ export class CryptoExchangeComponent implements OnInit {
     });
   }
   
-  ngOnInit(): void {
-    this.cryptoExchangeService.sendEther("0xFC05D980f5E4602A1b1Ef29A45257AC15e92e1F1", 2); // TODO: update the address
+  sendEther(): void {
+    if(this.addressFormControl.value != null && this.etherFormControl.value != null)
+    this.cryptoExchangeService.sendEther(this.addressFormControl.value, Number.parseInt(this.etherFormControl.value));
   }
 
 }

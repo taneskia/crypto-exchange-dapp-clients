@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 import { MatRadioModule } from '@angular/material/radio'; 
+import { MatInputModule } from '@angular/material/input';
 import { CryptoExchangeComponent } from './components/crypto-exchange/crypto-exchange.component';
 
 @NgModule({
@@ -37,7 +38,8 @@ import { CryptoExchangeComponent } from './components/crypto-exchange/crypto-exc
     MatToolbarModule,
     ScrollingModule,
     MatSnackBarModule,
-    MatRadioModule
+    MatRadioModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
