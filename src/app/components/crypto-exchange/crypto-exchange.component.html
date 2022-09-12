@@ -40,40 +40,38 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-2 mt-4 ml-2">
+                    <div class="col-2 mt-4 ml-2 justify-content-center align-self-center">
                         <mat-icon class="icon-display">key</mat-icon>
                     </div>
                     <div class="col-8 mt-4">
-                        <form class="address-form">
-                            <mat-form-field class="full-width">
-                                <mat-label>Address</mat-label>
-                                <input type="text" matInput [formControl]="addressFormControl"
-                                    placeholder="Ex. 0x48a1DC42AdbB87991F9e3b7C53D16E9fEF0b9ED7m">
-                                <mat-error
-                                    *ngIf="addressFormControl.hasError('pattern') && !addressFormControl.hasError('required')">
-                                    Please enter a valid address
-                                </mat-error>
-                                <mat-error *ngIf="addressFormControl.hasError('required')">
-                                    Address is <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </form>
+                        <mat-form-field class="full-width">
+                            <mat-label>Address</mat-label>
+                            <input type="text" matInput [formControl]="addressFormControl"
+                                placeholder="Ex. 0x48a1DC42AdbB87991F9e3b7C53D16E9fEF0b9ED7m">
+                            <mat-error *ngIf="addressFormControl.hasError('pattern') && !addressFormControl.hasError('required')">
+                                Please enter a valid address
+                            </mat-error>
+                            <mat-error *ngIf="addressFormControl.hasError('required')">
+                                Address is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-12">
-                        <form>
-                            <mat-form-field class="full-width">
-                                <mat-label>Ether amount</mat-label>
-                                <input type="number" matInput [formControl]="etherFormControl">
-                                <mat-error *ngIf="etherFormControl.hasError('required')">
-                                    Ether amount is <strong>required</strong>
-                                </mat-error>
-                                <mat-error *ngIf="etherFormControl.hasError('min')">
-                                    Enter a <strong>positive number</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </form>
+                    <div class="col-2 mt-4 ml-2">
+                        <mat-icon class="icon-display">payments</mat-icon>
+                    </div>
+                    <div class="col-8">
+                        <mat-form-field class="full-width">
+                            <mat-label>Ether amount</mat-label>
+                            <input type="number" matInput [formControl]="etherFormControl">
+                            <mat-error *ngIf="etherFormControl.hasError('required')">
+                                Ether amount is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="etherFormControl.hasError('min')">
+                                Enter a <strong>positive number</strong>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
 
@@ -84,7 +82,8 @@
                         etherFormControl.hasError('required') ||
                         etherFormControl.hasError('min')"
                         (click)="sendEther()">
-                    Send
+                        Send
+                        <mat-icon class="icon-display ml-2 mb-1">send</mat-icon>
                 </button>
 
             </div>
@@ -106,33 +105,56 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-2 mt-4 ml-2">
+                    <div class="col-2 mt-4 ml-2 justify-content-center align-self-center">
+                        <mat-icon class="icon-display">description</mat-icon>
+                    </div>
+                    <div class="col-8 mt-4">
+                        <mat-form-field class="full-width">
+                            <mat-label>Name or Alias</mat-label>
+                            <input type="text" matInput [formControl]="nameFormControl"
+                                placeholder="Ex. Someone">
+                            <mat-error *ngIf="nameFormControl.hasError('minlength')">
+                                Please a minimum of <strong>2 characters</strong>
+                            </mat-error>
+                            <mat-error *ngIf="nameFormControl.hasError('minlength')">
+                                Please no more than <strong>15 characters</strong>
+                            </mat-error>
+                            <mat-error *ngIf="nameFormControl.hasError('required')">
+                                Name/Alias is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2 mt-4 ml-2 justify-content-center align-self-center">
                         <mat-icon class="icon-display">key</mat-icon>
                     </div>
                     <div class="col-8 mt-4">
-                        <form class="address-form">
-                            <mat-form-field class="full-width">
-                                <mat-label>Address</mat-label>
-                                <input type="text" matInput [formControl]="addAddressFormControl"
-                                    placeholder="Ex. 0x48a1DC42AdbB87991F9e3b7C53D16E9fEF0b9ED7m">
-                                <mat-error
-                                    *ngIf="addAddressFormControl.hasError('pattern') && !addAddressFormControl.hasError('required')">
-                                    Please enter a valid address
-                                </mat-error>
-                                <mat-error *ngIf="addAddressFormControl.hasError('required')">
-                                    Address is <strong>required</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </form>
+                        <mat-form-field class="full-width">
+                            <mat-label>Address</mat-label>
+                            <input type="text" matInput [formControl]="addAddressFormControl"
+                                placeholder="Ex. 0x48a1DC42AdbB87991F9e3b7C53D16E9fEF0b9ED7m">
+                            <mat-error *ngIf="addAddressFormControl.hasError('pattern') && !addAddressFormControl.hasError('required')">
+                                Please enter a valid address
+                            </mat-error>
+                            <mat-error *ngIf="addAddressFormControl.hasError('required')">
+                                Address is <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
 
                 <button mat-raised-button color="primary" 
                         class="mt-2"
                         [disabled]="addAddressFormControl.hasError('pattern') || 
-                        addAddressFormControl.hasError('required')"
+                        addAddressFormControl.hasError('required') ||
+                        nameFormControl.hasError('minlength') || 
+                        nameFormControl.hasError('maxlength') ||
+                        nameFormControl.hasError('required')"
                         (click)="addAddress()">
-                    Add
+                        Add
+                        <mat-icon class="icon-display ml-2 mb-1">add</mat-icon>
                 </button>
 
                 <mat-divider></mat-divider>
@@ -150,9 +172,9 @@
                     <div class="col-12">
                         <mat-form-field appearance="fill" class="full-width">
                             <mat-label>Address list</mat-label>
-                            <mat-select [(ngModel)]="selectedAddress" name="food" (selectionChange)="onSelectedAddressChanged()">
-                              <mat-option *ngFor="let address of addressList" [value]="address">
-                                {{address}}
+                            <mat-select [(ngModel)]="selectedAddress" (selectionChange)="onSelectedAddressChanged()">
+                              <mat-option *ngFor="let addressObj of addressList" [value]="addressObj._address">
+                                {{ addressObj.name + ' - ' + addressObj._address }}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>

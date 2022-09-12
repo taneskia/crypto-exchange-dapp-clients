@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { Address } from 'src/app/models/Address';
 import { CryptoExchangeService } from 'src/app/services/crypto-exchange.service';
 
 @Component({
@@ -11,12 +12,13 @@ import { CryptoExchangeService } from 'src/app/services/crypto-exchange.service'
 export class CryptoExchangeComponent implements OnInit {
 
   currentAccount: string = '';
-  addressList: Array<string> = new Array<string>();
+  addressList: Array<Address> = new Array<Address>();
   selectedAddress: string = '';
 
   addressFormControl = new FormControl('', [Validators.required, Validators.pattern('0x[a-fA-F0-9]{40}')]);
   etherFormControl = new FormControl('', [Validators.required, Validators.min(0)]);
 
+  nameFormControl = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]);
   addAddressFormControl = new FormControl('', [Validators.required, Validators.pattern('0x[a-fA-F0-9]{40}')]);
 
 
@@ -25,6 +27,7 @@ export class CryptoExchangeComponent implements OnInit {
 
     this.cryptoExchangeService.currentAccountObservable.subscribe(account => {
       this.currentAccount = account;
+      this.handleAccountChange();
       this.changeDetectorRef.detectChanges();
     });
   }
@@ -33,29 +36,40 @@ export class CryptoExchangeComponent implements OnInit {
     await this.loadAddressList();
   }
   
-  sendEther(): void {
-    if(this.addressFormControl.value != null && this.etherFormControl.value != null)
-    this.cryptoExchangeService.sendEther(this.addressFormControl.value, Number.parseInt(this.etherFormControl.value));
-  }
-
-  // TODO: implement method
-  addAddress(): void {
-    if (this.addAddressFormControl.value != null) {
-      this.addressList.push(this.addAddressFormControl.value);
-      this.addAddressFormControl.setValue('');
+  async sendEther() {
+    if (this.addressFormControl.value != null && this.etherFormControl.value != null) {
+      await this.cryptoExchangeService.sendEther(this.addressFormControl.value, Number.parseInt(this.etherFormControl.value));
+      this.addressFormControl.reset();
+      this.etherFormControl.reset();
     }
   }
 
-  // TODO: implement method
+  async addAddress() {
+    const address = this.addAddressFormControl.value;
+    const name = this.nameFormControl.value;
+    if (address != null && name != null) {
+      await this.cryptoExchangeService.addAddress(name, address);
+      this.loadAddressList();
+      this.addAddressFormControl.reset();
+      this.nameFormControl.reset();
+    }
+  }
+
   async loadAddressList() {
-    this.addressList.push('');
-    this.addressList.push('0x40304c9e1d12Ebf0A28B125Cf841502d915f51Ab');
-    this.addressList.push('0x94b2e29AA0ed357221BE37A55Cd2c9dE07cB8bd6');
-    this.addressList.push('0x74b4B453aFb5634A41e2C98969B884CF05952657');
+    this.addressList = await this.cryptoExchangeService.getAddressList();
+    console.log("loading address list")
   }
 
   onSelectedAddressChanged() {
     this.addressFormControl.setValue(this.selectedAddress);
+  }
+
+  private async handleAccountChange() {
+    this.addressFormControl.reset();
+    this.etherFormControl.reset();
+    this.nameFormControl.reset();
+    this.addAddressFormControl.reset();
+    this.loadAddressList();
   }
 
 }

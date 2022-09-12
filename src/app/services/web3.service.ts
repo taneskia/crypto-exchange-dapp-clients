@@ -34,7 +34,6 @@ export class Web3Service {
       });
     } else {
       console.log('You should consider trying MetaMask!');
-      // TODO: handle no provider case
     }
   }
 
