@@ -21,6 +21,9 @@ export class CryptoExchangeComponent implements OnInit {
   nameFormControl = new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]);
   addAddressFormControl = new FormControl('', [Validators.required, Validators.pattern('0x[a-fA-F0-9]{40}')]);
 
+  transactionList: Array<any> = new Array<any>();
+
+  sending: boolean = false;
 
   constructor(private cryptoExchangeService: CryptoExchangeService,
               private changeDetectorRef: ChangeDetectorRef) {
@@ -34,14 +37,20 @@ export class CryptoExchangeComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadAddressList();
+    (await this.cryptoExchangeService.initializeEventListening()).subscribe(transaction => {
+      this.transactionList.push({ from: transaction.from, to: transaction.to });
+      this.changeDetectorRef.detectChanges();
+    });
   }
   
   async sendEther() {
+    this.sending = true;
     if (this.addressFormControl.value != null && this.etherFormControl.value != null) {
       await this.cryptoExchangeService.sendEther(this.addressFormControl.value, Number.parseInt(this.etherFormControl.value));
       this.addressFormControl.reset();
       this.etherFormControl.reset();
     }
+    this.sending = false;
   }
 
   async addAddress() {

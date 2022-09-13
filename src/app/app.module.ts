@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio'; 
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CryptoExchangeComponent } from './components/crypto-exchange/crypto-exchange.component';
 
 @NgModule({
@@ -41,7 +42,8 @@ import { CryptoExchangeComponent } from './components/crypto-exchange/crypto-exc
     MatSnackBarModule,
     MatRadioModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
